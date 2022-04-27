@@ -35,21 +35,30 @@ class RolesComponent extends Component
 
     public function store()
     {
-        $rules = [
-            'nombre' => ['required', 'min:4', 'alpha_dash', Rule::unique('parametros')],
-        ];
-        $this->validate($rules);
-        $parametro = new Parametro();
-        $parametro->nombre = $this->nombre;
-        $parametro->tabla_id = -1;
-        $parametro->save();
+        $roles = Parametro::where('tabla_id', '-1')->get();
+        if ($roles->count() <= 24){
+            $rules = [
+                'nombre' => ['required', 'min:4', 'alpha_dash', Rule::unique('parametros')],
+            ];
+            $this->validate($rules);
+            $parametro = new Parametro();
+            $parametro->nombre = $this->nombre;
+            $parametro->tabla_id = -1;
+            $parametro->save();
 
-        $this->rol_id = $parametro->id;
-        $this->roles = $parametro->id;
-        $this->alert(
-            'success',
-            'Parametro Creado'
-        );
+            $this->rol_id = $parametro->id;
+            $this->roles = $parametro->id;
+            $this->alert(
+                'success',
+                'Parametro Creado'
+            );
+        }else{
+            $this->alert(
+                'error',
+                'No se pueden crear mas Roles'
+            );
+        }
+
     }
 
     public function destroy($id)
