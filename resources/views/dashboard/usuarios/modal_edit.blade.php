@@ -58,7 +58,7 @@
 
                                     <input type="hidden" name="mod" value="status">
                                     @if ($user_id && ((leerJson(Auth::user()->permisos, 'usuarios.update') ||
-                                            Auth::user()->role == 100) &&
+                                            Auth::user()->role == 1 || Auth::user()->role == 100) &&
                                             $user_id != Auth::user()->id))
 
                                         <div class="row">
@@ -126,7 +126,17 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-user-cog"></i></span>
                                                 </div>
-                                                {!! Form::select('role', role() , null, ['class' => 'custom-select', 'wire:model.debounce.10000ms' => 'user_role']) !!}
+                                                {{--{!! Form::select('role', role() , null, ['class' => 'custom-select', 'wire:model.debounce.10000ms' => 'user_role']) !!}--}}
+                                                <select name="role" class="custom-select" wire:model.debounce.10000000ms="user_role">
+                                                    {{--<option value="{{  }}">Seleccione</option>--}}
+                                                    <option value="0">Estandar</option>
+                                                    @foreach($list_roles as $rol)
+                                                        <option value="{{ $rol->id }}">{{ ucwords($rol->nombre) }}</option>
+                                                    @endforeach
+                                                    @if(auth()->user()->role == 1 || auth()->user()->role ==100)
+                                                        <option value="1">Administrador</option>
+                                                    @endif
+                                                </select>
                                             </div>
                                         </div>
                                     @else

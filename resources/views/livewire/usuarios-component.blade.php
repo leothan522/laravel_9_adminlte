@@ -2,7 +2,7 @@
     {{-- A good traveler has no fixed plans and is not intent upon arriving. --}}
     <div class="row justify-content-center">
 
-        @if(leerJson(Auth::user()->permisos, 'usuarios.create') || Auth::user()->role == 100)
+        @if(leerJson(Auth::user()->permisos, 'usuarios.create') || Auth::user()->role == 1 || Auth::user()->role == 100)
             @include('dashboard.usuarios.create')
         @endif
 
@@ -27,14 +27,21 @@
                                 <i class="fas fa-list"></i> Ver Todos
                             </a>
 
+                            @if(leerJson(Auth::user()->permisos, 'usuarios.excel') || Auth::user()->role == 1 || Auth::user()->role == 100)
                             <a href="{{ route('usuarios.excel', $busqueda) }}"
                                class="btn btn-tool text-success swalDefaultInfo" {{--target="_blank"--}}>
                                 <i class="fas fa-file-excel"></i> <i class="fas fa-download"></i>
                             </a>
+                                @else
+                                <a href="{{ route('usuarios.excel') }}"
+                                   class="btn btn-tool text-success swalDefaultInfo disabled" {{--target="_blank"--}}>
+                                    <i class="fas fa-file-excel"></i> <i class="fas fa-download"></i>
+                                </a>
+                            @endif
 
                         @else
 
-                            @if(leerJson(Auth::user()->permisos, 'usuarios.excel') || Auth::user()->role == 100)
+                            @if(leerJson(Auth::user()->permisos, 'usuarios.excel') || Auth::user()->role == 1 || Auth::user()->role == 100)
                                 <a href="{{ route('usuarios.excel') }}"
                                    class="btn btn-tool text-success swalDefaultInfo" {{--target="_blank"--}}>
                                     <i class="fas fa-file-excel"></i> <i class="fas fa-download"></i>
@@ -86,6 +93,5 @@
 
         </div>
     </div>
-
 
 </div>

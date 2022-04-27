@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Parametro;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -38,8 +39,10 @@ class UsuariosComponent extends Component
         if ($users->isEmpty()){
             verSweetAlert2("Busqueda sin resultados", 'toast', null, 'error');
         }
+        $roles = Parametro::where('tabla_id', '-1')->get();
         return view('livewire.usuarios-component')
-            ->with('users', $users);
+            ->with('users', $users)
+            ->with('list_roles', $roles);
     }
 
     public function generarClave()
@@ -80,6 +83,12 @@ class UsuariosComponent extends Component
         $user->email = $this->email;
         $user->role = $this->role;
         $user->password = Hash::make($this->password);
+
+        $role = Parametro::where('tabla_id', '-1')->where('id', $this->role)->first();
+        if ($role){
+            $user->permisos = $role->valor;
+        }
+
         $user->save();
         $this->alert(
             'success',
@@ -112,6 +121,12 @@ class UsuariosComponent extends Component
         $user->name = $this->user_name;
         $user->email = $this->user_email;
         $user->role = $this->user_role;
+
+        $role = Parametro::where('tabla_id', '-1')->where('id', $this->user_role)->first();
+        if ($role){
+            $user->permisos = $role->valor;
+        }
+
         $user->save();
         $this->alert(
             'success',

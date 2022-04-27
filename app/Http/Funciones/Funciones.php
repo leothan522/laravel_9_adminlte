@@ -184,6 +184,12 @@ Y al final devolveremos true o false dependiendo si el valor introducido se encu
 
 
 function role($i = null){
+
+    $roles = \App\Models\Parametro::where('tabla_id', '-1')->where('id', $i)->first();
+    if ($roles){
+        return ucwords($roles->nombre);
+    }
+
     $status = [
         '0'     => 'Estandar',
         '1'     => 'Administrador',

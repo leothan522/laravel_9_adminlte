@@ -18,7 +18,7 @@ class UserPermisos
      */
     public function handle(Request $request, Closure $next)
     {
-        if (leerJson(Auth::user()->permisos, Route::currentRouteName()) == true || Auth::user()->role == 100){
+        if (leerJson(Auth::user()->permisos, Route::currentRouteName()) == true || Auth::user()->role == 1 || Auth::user()->role == 100){
             return $next($request);
         }else{
             verSweetAlert2('No tienes permisos suficientes', 'toast', 'error');

@@ -24,6 +24,7 @@
 @section('content')
 
     @livewire('usuarios-component')
+    @livewire('roles-component')
 
 @stop
 

@@ -70,7 +70,18 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-user-cog"></i></span>
                     </div>
-                    {!! Form::select('role', role() , null , ['class' => 'custom-select', 'wire:model.debounce.100000ms' => 'role', 'placeholder' => 'Seleccione']) !!}
+                    {{--{!! Form::select('role', $list_roles, null , ['class' => 'custom-select', 'wire:model.debounce.100000ms' => 'role', 'placeholder' => 'Seleccione']) !!}--}}
+                    <select name="role" class="custom-select" wire:model.debounce.10000ms="role">
+                        <option value="">Seleccione</option>
+                        <option value="0">Estandar</option>
+                        @foreach($list_roles as $rol)
+                            <option value="{{ $rol->id }}">{{ ucwords($rol->nombre) }}</option>
+                        @endforeach
+                        @if(auth()->user()->role == 1 || auth()->user()->role ==100)
+                            <option value="1">Administrador</option>
+                        @endif
+                    </select>
+
                     @error('role')
                     <span class="col-sm-12 text-sm text-bold text-danger">
                                     <i class="icon fas fa-exclamation-triangle"></i>

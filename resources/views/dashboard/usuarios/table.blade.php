@@ -24,24 +24,28 @@
                     <td class="text-right">{{ haceCuanto($user->created_at)  }}</td>
                     <td class="justify-content-end">
                         <div class="btn-group">
-                            @if ((leerJson(Auth::user()->permisos, 'usuarios.edit') && $user->role != 100) || Auth::user()->role == 100)
+                            @if ((leerJson(Auth::user()->permisos, 'usuarios.edit') && $user->role != 100 && $user->role != 1) || $user->role != 100 && Auth::user()->role == 1 || Auth::user()->role == 100)
                                 <button wire:click="edit({{ $user->id }})" data-toggle="modal" data-target="#modal-lg" class="btn btn-info btn-sm">
                                     <i class="fas fa-edit"></i>
                                 </button>
                             @else
                                 <button class="btn btn-info btn-sm" disabled><i class="fas fa-edit"></i></button>
                             @endif
-                            @if ((leerJson(Auth::user()->permisos, 'usuarios.permisos') || Auth::user()->role == 100) && $user->role != 100)
+                           {{-- @if ((leerJson(Auth::user()->permisos, 'usuarios.permisos') || Auth::user()->role == 1 || Auth::user()->role == 100) && $user->role != 100)--}}
+                            @if ((leerJson(Auth::user()->permisos, 'usuarios.permisos') && $user->role != 100 && $user->role != 1) || $user->role != 100 && Auth::user()->role == 1 || Auth::user()->role == 100)
                                 <button wire:click="edit_permisos({{ $user->id }})" data-toggle="modal" data-target="#modal-lg-permisos" class="btn btn-info btn-sm">
                                     <i class="fas fa-cogs"></i>
                                 </button>
                             @else
                                 <button class="btn btn-info btn-sm" disabled><i class="fas fa-cogs"></i></button>
                             @endif
-                            @if ((leerJson(Auth::user()->permisos, 'usuarios.destroy') || Auth::user()->role == 100) && ($user->role != 100 && $user->id != Auth::user()->id))
+                            {{--@if ((leerJson(Auth::user()->permisos, 'usuarios.destroy') || Auth::user()->role == 100 || Auth::user()->role == 1) && ($user->role != 100 && $user->id != Auth::user()->id))--}}
+                            @if (((leerJson(Auth::user()->permisos, 'usuarios.destroy') && $user->role != 100 && $user->role != 1) || $user->role != 100 && Auth::user()->role == 1 || Auth::user()->role == 100) && $user->id != Auth::user()->id)
+
                                 <button wire:click="destroy({{ $user->id }})" class="btn btn-info btn-sm">
                                     <i class="fas fa-trash-alt"></i>
                                 </button>
+
                             @else
                                 <button class="btn btn-info btn-sm" disabled><i class="fas fa-trash-alt"></i></button>
                             @endif

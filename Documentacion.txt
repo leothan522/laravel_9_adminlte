@@ -1,0 +1,8 @@
+----ROLES DE USUARIOS
+Para los Roles de Usuarios en la tabla "Parametros" se usa el valor "-1" en "tabla_id" para indicar que es ROL y el
+campo "Nombre" se usara para el nombre que el usuario coloque a dicho rol.
+
+
+
+
+

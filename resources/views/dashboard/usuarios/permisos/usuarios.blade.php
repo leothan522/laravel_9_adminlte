@@ -48,7 +48,7 @@
                     <label class="custom-control-label" for="customSwitch3"></label>
                 </div>
             </li>
-            <li class="list-group-item">
+            {{--<li class="list-group-item">
                 Permisos de Usuario
                 <div class="custom-control custom-switch custom-switch-on-success float-right">
                     <input type="checkbox" wire:click="update_permisos({{ $user_id }}, 'usuarios.permisos')"
@@ -57,6 +57,15 @@
                     <label class="custom-control-label" for="customSwitch4"></label>
                 </div>
             </li>
+            <li class="list-group-item">
+                Roles de Usuarios
+                <div class="custom-control custom-switch custom-switch-on-success float-right">
+                    <input type="checkbox" wire:click="update_permisos({{ $user_id }}, 'usuarios.roles')"
+                           @if(leerJson($user_permisos, 'usuarios.roles')) checked @endif
+                           class="custom-control-input" id="customSwitch8">
+                    <label class="custom-control-label" for="customSwitch8"></label>
+                </div>
+            </li>--}}
             <li class="list-group-item">
                 Descargar Excel
                 <div class="custom-control custom-switch custom-switch-on-success float-right">
